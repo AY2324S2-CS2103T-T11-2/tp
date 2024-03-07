@@ -327,6 +327,14 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * **Mainstream OS**: Windows, Linux, Unix, MacOS
 * **Private contact detail**: A contact detail that is not meant to be shared with others
+* **Address Book**: A digital list within NUSContacts that stores and organizes contact details for course coordinators, teaching assistants (TAs), and fellow students.
+* **Course Code**: A unique identifier for a specific course offered at the university, consisting of letters and numbers (e.g., CS101), used to search and identify courses within NUSContacts.
+* **Course Coordinator**: The primary instructor or faculty member responsible for overseeing the administration and teaching of a particular course, serving as the main point of contact for course-related inquiries.
+* **Tutor** : A collective term in NUSContacts for both Teaching Assistants (TAs) and Professors (Profs), covering all educators involved in course instruction and support. Tutors handle lectures, tutorials, and student inquiries, simplifying app interactions.
+* **Contact Detail**: Information enabling contact with someone, such as an email address, phone number, or office location, specifically referring to the contact information of course coordinators and TAs in NUSContacts.
+* **User Profile**: A personal page for each student within NUSContacts, displaying their contact information, courses enrolled, and any other relevant academic information they choose to share.
+* **Search Function**: A tool allowing users to find courses, coordinators, TAs, and fellow students using keywords, course codes, or names within NUSContacts.
+
 
 --------------------------------------------------------------------------------------------------------------------
 
