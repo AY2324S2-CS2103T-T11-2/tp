@@ -46,6 +46,9 @@ public class NameTest {
         // same object -> returns true
         assertTrue(name.equals(name));
 
+        // same name different in case -> returns true
+        assertTrue(name.equals(new Name("vaLId nAme")));
+
         // null -> returns false
         assertFalse(name.equals(null));
 
@@ -54,5 +57,7 @@ public class NameTest {
 
         // different values -> returns false
         assertFalse(name.equals(new Name("Other Valid Name")));
+
+
     }
 }
