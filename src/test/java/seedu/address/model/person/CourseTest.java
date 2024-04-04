@@ -33,25 +33,23 @@ public class CourseTest {
         assertFalse(Course.isValidCourse("CS")); // missing digits
 
         // invalid courses
-        assertFalse(Course.isValidCourse("C1231")); // at least 2 alphabet prefix
+        assertFalse(Course.isValidCourse("C1234")); // at least 2 alphabet prefix
         assertFalse(Course.isValidCourse("CS123")); // cannot have less than 4 digits
         assertFalse(Course.isValidCourse("CS12345")); // cannot have more than 4 digits
-        assertFalse(Course.isValidCourse("CS1231CS")); // at most 1 alphabet postfix
+        assertFalse(Course.isValidCourse("CS1231SS")); // at most 1 alphabet postfix
         assertFalse(Course.isValidCourse("CS123S1")); // no mixing of digits and alphabets
-        assertFalse(Course.isValidCourse("CS0123")); // first digit cannot be less than 1
-        assertFalse(Course.isValidCourse("CS9123")); // first digit cannot be more than 8
-        assertFalse(Course.isValidCourse("CS-1123")); // no invalid character "-"
-        assertFalse(Course.isValidCourse("CS11 23")); // no whitespaces in-between characters
+        assertFalse(Course.isValidCourse("CS-1234")); // no invalid characters "-"
+        assertFalse(Course.isValidCourse("CS12 34")); // no whitespaces in-between characters
 
         // valid courses
         assertTrue(Course.isValidCourse("CS1234")); // no alphabet postfix
-        assertTrue(Course.isValidCourse("CS1231S")); // 1 alphabet postfix
+        assertTrue(Course.isValidCourse("CS1234S")); // 1 alphabet postfix
         assertTrue(Course.isValidCourse("CS1111")); // digits all equal
-        assertTrue(Course.isValidCourse("PLS8002B")); // first digit is 8
+        assertTrue(Course.isValidCourse("CSA1234")); // more than 2 prefix alphabets
         assertTrue(Course.isValidCourse("  CS1234  ")); // leading and trailing whitespaces
         assertTrue(Course.isValidCourse("cS1234s")); // small letters
-        assertTrue(Course.isValidCourse("CS1999")); // last 3 digits greater than 8
-        assertTrue(Course.isValidCourse("  Cs8970s    ")); // mixed of above properties
+        assertTrue(Course.isValidCourse("CS9180")); // Boundary digits
+        assertTrue(Course.isValidCourse("  CsA8970s    ")); // mixed of above properties
     }
 
     @Test
