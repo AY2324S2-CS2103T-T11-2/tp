@@ -74,6 +74,10 @@ public class EditCommandParser implements Parser<EditCommand> {
                 editPersonDescriptor.setCourse(ParserUtil.parseCourse(argMultimap.getValue(PREFIX_COURSE).get(),
                             shouldCheck));
             }
+            if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
+                editPersonDescriptor.setAddress(ParserUtil.parseOptionalAddress(
+                        argMultimap.getValue(PREFIX_ADDRESS).get(), shouldCheck));
+            }
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_FIX_OR_ADD_FORCE_FLAG, pe.getMessage()),
                     pe.getErroneousPart());
@@ -81,9 +85,8 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (argMultimap.getValue(PREFIX_ROLE).isPresent()) {
             editPersonDescriptor.setRole(ParserUtil.parseRole(argMultimap.getValue(PREFIX_ROLE).get()));
         }
-        if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
-            editPersonDescriptor.setAddress(
-                    ParserUtil.parseOptionalAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
+        if (argMultimap.getValue(PREFIX_FORCE).isPresent()) {
+            editPersonDescriptor.setShouldCheck(shouldCheck);
         }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editPersonDescriptor::setTags);
 

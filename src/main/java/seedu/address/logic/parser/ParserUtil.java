@@ -129,30 +129,42 @@ public class ParserUtil {
      * Parses a {@code CommandPart address} into an {@code Address}.
      * Leading and trailing whitespaces will be trimmed.
      *
+     * @param shouldCheck If true, check if the address is valid.
      * @throws ParseException if the given {@code address} is invalid.
      */
-    public static Address parseAddress(CommandPart address) throws ParseException {
+    public static Address parseAddress(CommandPart address, boolean shouldCheck) throws ParseException {
         requireNonNull(address);
         CommandPart trimmedAddress = address.trim();
-        if (!Address.isValidAddress(trimmedAddress.toString())) {
+        try {
+            return new Address(trimmedAddress.toString(), shouldCheck);
+        } catch (IllegalArgumentException e) {
             throw new ParseException(Address.MESSAGE_CONSTRAINTS, trimmedAddress);
         }
-        return new Address(trimmedAddress.toString());
+    }
+
+    public static Address parseAddress(CommandPart address) throws ParseException {
+        return parseAddress(address, true);
     }
 
     /**
      * Parses a {@code CommandPart address} into a {@code Optional<Address>}, allowing empty input.
      * Leading and trailing whitespaces will be trimmed.
      *
+     * @param shouldCheck If true, check if the address is valid.
      * @throws ParseException if the given {@code address} is invalid.
      */
-    public static Optional<Address> parseOptionalAddress(CommandPart address) throws ParseException {
+    public static Optional<Address> parseOptionalAddress(CommandPart address, boolean shouldCheck)
+            throws ParseException {
         requireNonNull(address);
         CommandPart trimmedAddress = address.trim();
         if (trimmedAddress.isEmpty()) {
             return Optional.empty();
         }
-        return Optional.of(parseAddress(address));
+        return Optional.of(parseAddress(address, shouldCheck));
+    }
+
+    public static Optional<Address> parseOptionalAddress(CommandPart address) throws ParseException {
+        return parseOptionalAddress(address, true);
     }
 
     /**

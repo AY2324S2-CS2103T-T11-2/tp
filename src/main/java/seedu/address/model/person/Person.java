@@ -28,6 +28,7 @@ public class Person {
     // Data fields
     private final Optional<Address> address;
     private final Set<Tag> tags = new HashSet<>();
+    private boolean shouldCheck;
 
     /**
      * Every field must be present and not null.
@@ -36,9 +37,6 @@ public class Person {
             Optional<Address> address, Course course, Set<Tag> tags) {
 
         requireAllNonNull(name, phone, email, role, address, course, tags);
-
-        // Check for valid address based on the person's role
-        validateAddress(role, address);
 
         this.name = name;
         this.phone = phone;
@@ -94,9 +92,22 @@ public class Person {
      * @throws InvalidAddressException If the address is invalid.
      */
     public static Person createPerson(Name name, Optional<Phone> phone, Email email, Role role,
-                                      Optional<Address> address, Course course, Set<Tag> tags)
+                                      Optional<Address> address, Course course, Set<Tag> tags, boolean shouldCheck)
             throws InvalidAddressException {
+        validateAddress(role, address, shouldCheck);
         return new Person(name, phone, email, role, address, course, tags);
+    }
+
+    /**
+     * Returns false only when person's role is PROFESSOR and address is empty.
+     */
+    public boolean hasValidAddress() {
+        // checks if a Professor has an address
+        if (this.role == Role.PROFESSOR) {
+            return this.address.isPresent();
+        } else {
+            return true;
+        }
     }
 
     /**
@@ -114,14 +125,18 @@ public class Person {
 
     /**
      * Validates the address based on the person's role.
-     * @param role
-     * @param address
-     * @throws IllegalArgumentException
+     *
+     * @param role the role of the person
+     * @param address the address of the person
+     * @throws InvalidAddressException if address is invalid.
      */
-    public static void validateAddress(Role role, Optional<Address> address) {
+    public static void validateAddress(Role role, Optional<Address> address, boolean shouldCheck)
+            throws InvalidAddressException {
         assert role != null;
-        if (role == Role.PROFESSOR && address.isEmpty()) {
-            throw new InvalidAddressException(Address.MESSAGE_CONSTRAINTS_INVALID_PROFESSOR);
+        if (shouldCheck) {
+            if (role == Role.PROFESSOR && address.isEmpty()) {
+                throw new InvalidAddressException(Address.MESSAGE_CONSTRAINTS_INVALID_PROFESSOR);
+            }
         }
     }
 

@@ -114,7 +114,7 @@ class JsonAdaptedPerson {
         if (address != null && !Address.isValidAddress(address)) {
             throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);
         }
-        final Optional<Address> modelAddress = Optional.ofNullable(address).map(Address::new);
+        final Optional<Address> modelAddress = Optional.ofNullable(address).map(x -> new Address(x, shouldCheck));
 
         if (course == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Course.class.getSimpleName()));

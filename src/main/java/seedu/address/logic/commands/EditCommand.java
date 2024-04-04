@@ -91,6 +91,9 @@ public class EditCommand extends Command {
         if (!personToEdit.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
             throw new CommandExecutionException(MESSAGE_DUPLICATE_PERSON);
         }
+        if (!editedPerson.hasValidAddress()) {
+            throw new CommandExecutionException(Address.MESSAGE_CONSTRAINTS_INVALID_PROFESSOR);
+        }
 
         model.saveAddressBook(); // Save previous copy of address book if command execution successful.
         model.setPerson(personToEdit, editedPerson);
@@ -113,10 +116,11 @@ public class EditCommand extends Command {
         Optional<Address> updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
         Course updatedCourse = editPersonDescriptor.getCourse().orElse(personToEdit.getCourse());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
+        boolean shouldCheck = editPersonDescriptor.getShouldCheck();
         try {
             return Person.createPerson(
                     updatedName, updatedPhone, updatedEmail, updatedRole,
-                    updatedAddress, updatedCourse, updatedTags);
+                    updatedAddress, updatedCourse, updatedTags, shouldCheck);
         } catch (InvalidAddressException e) {
             throw new CommandExecutionException(e.getMessage());
         }
@@ -158,6 +162,7 @@ public class EditCommand extends Command {
         private Optional<Address> address;
         private Course course;
         private Set<Tag> tags;
+        private boolean shouldCheck;
 
         public EditPersonDescriptor() {}
 
@@ -173,6 +178,7 @@ public class EditCommand extends Command {
             setAddress(toCopy.address);
             setCourse(toCopy.course);
             setTags(toCopy.tags);
+            setShouldCheck(toCopy.shouldCheck);
         }
 
         /**
@@ -261,6 +267,13 @@ public class EditCommand extends Command {
          */
         public Optional<Set<Tag>> getTags() {
             return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
+        }
+
+        public void setShouldCheck(boolean shouldCheck) {
+            this.shouldCheck = shouldCheck;
+        }
+        public boolean getShouldCheck() {
+            return shouldCheck;
         }
 
         @Override

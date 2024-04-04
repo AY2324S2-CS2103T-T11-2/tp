@@ -22,16 +22,30 @@ public class Address {
     public static final String VALIDATION_REGEX = "[^\\s].*";
 
     public final String value;
+    protected final boolean shouldCheck;
 
     /**
      * Constructs an {@code Address}.
      *
      * @param address A valid address.
+     * @param shouldCheck If true, check if the address is valid.
+     */
+    public Address(String address, boolean shouldCheck) {
+        requireNonNull(address);
+        if (shouldCheck) {
+            checkArgument(isValidAddress(address), MESSAGE_CONSTRAINTS);
+        }
+        this.shouldCheck = shouldCheck;
+        value = address;
+    }
+
+    /**
+     * Constructs a valid {@code Address}.
+     *
+     * @param address A valid address.
      */
     public Address(String address) {
-        requireNonNull(address);
-        checkArgument(isValidAddress(address), MESSAGE_CONSTRAINTS);
-        value = address;
+        this(address, true);
     }
 
     /**
