@@ -11,7 +11,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
  */
 public class Address {
 
-    public static final String MESSAGE_CONSTRAINTS = "Addresses can take any values, and it should not be blank";
+    public static final String MESSAGE_CONSTRAINTS = "Addresses can take any values, "
+            + "and it should not be blank."
+            + "If you want to not specify the address, leave out a/ADDRESS entirely.";
     public static final String MESSAGE_CONSTRAINTS_PROFESSOR = String.format(
         "Please input the professor's office address. Use: %sADDRESS", PREFIX_ADDRESS);
     public static final String MESSAGE_CONSTRAINTS_INVALID_PROFESSOR = "Professors cannot have empty addresses!";
