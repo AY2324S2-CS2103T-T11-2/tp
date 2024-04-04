@@ -25,21 +25,47 @@ NUSContacts is a **desktop app for managing contacts, optimized for use via a Co
 5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
-   * `list` : Lists all contacts.
+   * `list`: Lists all contacts.
 
-   * `add n/John Doe p/98765432 e/johnd@example.com r/STUDENT a/PGPR c/CS2103T` : Adds a contact named `John Doe` to the Address Book.
+   * `add n/John Doe p/98765432 e/johnd@example.com r/STUDENT a/PGPR c/CS2103T`: Adds a contact named `John Doe` to the Address Book.
 
-   * `delete 3` : Deletes the 3rd contact shown in the current list.
+   * `delete 3`: Deletes the 3rd contact shown in the current list.
 
-   * `clear` : Deletes all contacts.
+   * `clear`: Deletes all contacts.
 
-   * `exit` : Exits the app.
+   * `exit`: Exits the app.
 
-6. Refer to the [Features](#features) below for details of each command.
+6. Refer to the [list of all commands](#list-of-all-commands) below for details of each command.
 
 --------------------------------------------------------------------------------------------------------------------
 
 ## Features
+
+### General features
+
+#### Command history
+
+You can navigate between past successful commands by pressing the `UP` and `DOWN` arrow keys.
+
+#### Highlighting erroneous part of the command
+
+When a command contains an error, the program will try to detect the part of the command that causes the error, and
+selects it in the command box.
+
+#### Saving the data
+
+NUSContacts data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+
+#### Editing the data file
+
+NUSContacts data are saved automatically as a JSON file `[JAR file location]/data/nuscontacts.json`. Advanced users are welcome to update data directly by editing that data file.
+
+<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
+If your changes to the data file makes its format invalid, NUSContacts will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.<br>
+Furthermore, certain edits can cause the NUSContacts to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
+</div>
+
+### List of all commands
 
 <div markdown="block" class="alert alert-info">
 
@@ -51,24 +77,26 @@ NUSContacts is a **desktop app for managing contacts, optimized for use via a Co
 * Items in square brackets are optional.<br>
   e.g. `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 
-* Items with `…`​ after them can be used multiple times including zero times.<br>
-  e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+* Items with `…` after them can be used multiple times including zero times.<br>
+  e.g. `[t/TAG]…` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 
 * If the command you have typed is a prefix of only one existing command, it will be interpreted as that existing command.<br>
   e.g. if the command is `ad ...`, then it will be interpreted as an `add ...` command.
 
-* Parameters can be in any order.<br>
+* Parameters can be in any order, except specified otherwise.<br>
   e.g. if the command specifies `n/NAME p/PHONE`, `p/PHONE n/NAME` is also acceptable.
 
 * For commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`), specifying any extraneous parameters for them
   will result in an `Invalid command format!` error message. Make sure to just enter these commands as it is. 
 
-* You can navigate between past successful commands by pressing the `UP` and `DOWN` arrow keys.
-
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
+
+* The command name and tag is case-sensitive, following tradition of `bash` shell commands.
+  Nevertheless, all command names are in lowercase, and typing lowercase characters is faster than typing uppercase
+  characters.
 </div>
 
-### Viewing help : `help`
+#### Viewing help: `help`
 
 Shows a message listing out all the available commands and their purpose.
 
@@ -77,49 +105,56 @@ Format: `help`
 For more information regarding the command formats and examples, press `F1` to open up a help window (as shown in the picture below).
 
 To close the help window, you can simply press `esc` on your keyboard. Windows users may also use 
-`alt`+`F4` or click on the red `X` in the top right corner of the window.
+`alt`+`F4` or click on the `X` in the top right corner of the window.
 
 ![help message](images/helpMessage.png)
 
-The project website includes the NUSContacts user guide, which contains a more detailed description of each command.
+The [project website](https://ay2324s2-cs2103t-t11-2.github.io/tp/) includes the NUSContacts user guide, which contains a more detailed description of each command.
 
-### Adding a person: `add`
+#### Adding a person: `add`
 
 Adds a person to the address book.
 
-Format: `add n/NAME e/EMAIL r/ROLE a/ADDRESS c/COURSE [p/PHONE] [t/TAG]…​`
+Format: `add n/NAME e/EMAIL r/ROLE c/COURSE [a/ADDRESS] [p/PHONE] [t/TAG]… [f/]`
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-A person can have any number of tags (including 0)
+A person can have any number of tags (including 0).
 </div>
 
 Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com r/student a/PGPR c/CS2101`
 * `add n/Betsy Crowe t/friend e/betsycrowe@example.com r/TA a/COM2-0102 c/ST2334`
 
-Unlike the `edit` command, `t/` with an empty tag is not supported.
-If you want to not include any tag, leave out `t/TAG` entirely.
-Similarly, `p/` without any phone number is not supported, if you want to not specify the phone number, leave out `p/PHONE` entirely.
+This is mostly sufficient for you to know how to use the command. Here are some more details:
 
-The allowed roles are `Student`, `TA`, or `Professor`.
-The input is case-insensitive, and you can type an unambiguous prefix to specify the role.
-For example, you can type `r/s` instead of `r/student` as shown above.
+* **The `a/ADDRESS` field**: You can keep a professor or TA's office address here.
+  However, TA or student may not have an office (and you may not know their home address),
+  as such, this field is optional for those roles.
 
-### Listing all persons : `list`
+* **The `r/ROLE` field**: The allowed roles are `Student`, `TA`, or `Professor`.
+  The input is case-insensitive, and you can type an unambiguous prefix to specify the role.
+  For example, you can type `r/s` instead of `r/student` as shown above.
 
-Shows a list of all persons in the address book.
+* **The `t/TAG` field**: Unlike the `edit` command, `t/` with an empty tag is not supported.
+  If you want to not include any tag, leave out `t/TAG` entirely.
 
-Format: `list`
+* **The `p/PHONE` field**: Similarly, `p/` without any phone number is not supported,
+  if you want to not specify the phone number, leave out `p/PHONE` entirely.
 
-* See [note](#note-) under [Locating Persons by Name](#locating-persons-by-name--find) to understand how the `list` command can be useful.
+* **The `f/` field**: Several fields have some validation rules (for example, you cannot use `ABCD` as a course code,
+  since it does not conform to NUS course code format). Nevertheless, if you enter such a course code as input, the
+  program will allow you to bypass the validation by adding `f/` to the end of the command.
 
-### Editing a person : `edit`
+  Note that `f/` must come at the end, or immediately before a tag. For example, `add f/ n/Alice …` is allowed, but `add
+  n/ f/ Alice …` is not allowed.
+
+#### Editing a person: `edit`
 
 Edits an existing person in the address book.
 
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [r/ROLE] [a/ADDRESS] [c/COURSE] [t/TAG]…​`
+Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [r/ROLE] [a/ADDRESS] [c/COURSE] [t/TAG]… [f/]`
 
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
+* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the person will be removed i.e. adding of tags is not cumulative.
@@ -132,7 +167,14 @@ Examples:
 *  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 *  `edit 3 p/ t/` Deletes the phone number of the 3rd person and clears all existing tags.
 
-### Locating persons by name: `find`
+<div markdown="block" class="alert alert-info">
+:bulb: If an invalid field value is specified, the program will inform you of the error.
+You can fix the error, or use `f/` to bypass it if you want to.
+
+Refer to [Adding a person: `add`](#adding-a-person-add) for more information about `f/`.
+</div>
+
+#### Locating persons by name: `find`
 
 Finds persons whose names or course contain any of the given keywords.
 
@@ -154,17 +196,31 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 
 Examples:
 * `find John` returns `john` and `John Doe`.
+
 * `find yang timothy` returns `Yang Heebeom`, `Timothy`.<br>
   ![result for 'find alex david'](images/findYangTimothyResult.png)
+
 * `find yang cs2109s` returns `Yang Heebeom`, `Reet`.<br>
   ![result for 'find alex david'](images/findYangCS2109SResult.png)
+
 * `find yang professor` returns `Yang Heebeom`, `HongDuc`.<br>
     ![result for 'find alex david'](images/findYangProfessorResult.png)
 
-#### Note:
+##### Note on returning to the original view
 * After using `find`, the list may no longer display all saved contacts. Use `list` to revert the list to the full list of contacts in the order they were added.
 
-### Deleting a person : `delete`
+#### Listing all persons: `list`
+
+Shows a list of all persons in the address book.
+
+Format: `list`
+
+<div markdown="block" class="alert alert-info">
+:bulb: See [note](#note-on-returning-to-the-original-view) under [Locating Persons by Name](#locating-persons-by-name-find) to understand how the `list` command can be useful.
+</div>
+
+
+#### Deleting a person: `delete`
 
 Deletes the specified person(s) from the address book.
 
@@ -172,7 +228,7 @@ Format: `delete INDEX`
 
 * Deletes the person at the specified `INDEX`.
 * The index refers to the index number shown in the displayed person list.
-* The index **must be a positive integer** 1, 2, 3, …​
+* The index **must be a positive integer** 1, 2, 3, …
 
 Examples:
 * `list` followed by `delete 2` deletes the 2nd person in the address book.
@@ -181,7 +237,7 @@ Examples:
 
 You can also delete multiple people by chaining the indices using a comma.
 
-Format: `delete INDEX1, INDEX2, INDEX3, …​`
+Format: `delete INDEX1, INDEX2, INDEX3, …`
 
 * A comma (`,`) must be used to separate each pair of Indices.
 * The indices do not need to be listed in order. (i.e. `2, 4, 6` is the same as `6, 2, 4`)
@@ -191,7 +247,7 @@ Format: `delete INDEX1, INDEX2, INDEX3, …​`
 Example:
 * `delete 3, 1, 7, 8` deletes the first, third, seventh, and eighth person in the address book.
 
-### Copying a person's email to clipboard: `copy`
+#### Copying a person's email to clipboard: `copy`
 
 Copies the email of the specified person from the address book to the system clipboard.
 
@@ -199,19 +255,19 @@ Format: `copy INDEX`
 
 * Copies the email of the person at the specified `INDEX`.
 * The index refers to the index number shown in the displayed person list.
-* The index **must be a positive integer** 1, 2, 3, …​
+* The index **must be a positive integer** 1, 2, 3, …
 
 Examples:
 * `list` followed by `copy 2` copies the email of the 2nd person in the address book to the clipboard.
 * `find Betsy` followed by `copy 1` copies the email of the 1st person in the results of the `find` command to the clipboard.
 
-### Clearing all entries : `clear`
+#### Clearing all entries: `clear`
 
 Clears all entries from the address book.
 
 Format: `clear`
 
-### Undo last command : `undo`
+#### Undo last command : `undo`
 
 Revert the last change to the contact list.
 
@@ -222,28 +278,12 @@ Likewise, entering `undo` with no prior changes will also display the same error
 **Note:** `undo` does not affect commands that do not modify the contact list
 (`help`, `list`, `find` etc.). 
 
-### Exiting the program : `exit`
+#### Exiting the program: `exit`
 
 Exits the program.
 
 Format: `exit`
 
-### Saving the data
-
-NUSContacts data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
-
-### Editing the data file
-
-NUSContacts data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
-
-<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
-If your changes to the data file makes its format invalid, NUSContacts will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.<br>
-Furthermore, certain edits can cause the NUSContacts to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
-</div>
-
-### Archiving data files `[coming in v2.0]`
-
-_Details coming soon ..._
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -264,11 +304,13 @@ _Details coming soon ..._
 
 | Action     | Format, Examples                                                                                                                                                                |
 |------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Add**    | `add n/NAME e/EMAIL r/ROLE a/ADDRESS c/COURSE [t/TAG]… [p/PHONE]​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com r/STUDENT a/PGPR c/CS2103T t/friend t/colleague` |
+| **Add**    | `add n/NAME e/EMAIL r/ROLE a/ADDRESS c/COURSE [t/TAG]… [p/PHONE]` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com r/STUDENT a/PGPR c/CS2103T t/friend t/colleague` |
 | **Clear**  | `clear`                                                                                                                                                                         |
 | **Delete** | `delete INDEX`<br> e.g., `delete 3`                                                                                                                                             |
-| **Edit**   | `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [r/ROLE] [a/ADDRESS] [c/COURSE] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                        |
+| **Edit**   | `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [r/ROLE] [a/ADDRESS] [c/COURSE] [t/TAG]…`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                        |
 | **Find**   | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake CS2103T STUDENT`                                                                                                      |
 | **List**   | `list`                                                                                                                                                                          |
 | **Help**   | `help`                                                                                                                                                                          |
-| **Undo**   |`undo`                                                                                                                                                                          |
+| **Exit**   | `exit`                                                                                                                                                                          |
+| **Copy**   | `copy INDEX`                                                                                                                                                                          |
+| **Undo**   | `undo`                                                                                                                                                                          |

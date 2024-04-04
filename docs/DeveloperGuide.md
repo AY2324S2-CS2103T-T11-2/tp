@@ -346,6 +346,17 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     
       Use case resumes at step 2.
 
+* 2c. User provides an invalid index such as -1.
+    * 2c1. NUSContacts points out where the index is in the command and shows an error message.
+
+    Use case resumes at step 2.
+
+* 2d. User provides a phone number that does not conform to the expected format.
+    * 2d1. NUSContacts points out where the phone number is in the command and shows a warning.
+    * 2d2. User specify that the warning is to be ignored.
+
+    Use case resumes at step 3.
+
 
 **UC4: Find a tutor by name**
 
