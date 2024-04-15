@@ -41,6 +41,8 @@ If you can type fast, NUSContacts can get your contact management tasks done fas
 
 6. Refer to the [list of all commands](#list-of-all-commands) below for details of each command.
 
+[Back to Table of Contents](#table-of-contents)
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## Features
@@ -51,9 +53,17 @@ If you can type fast, NUSContacts can get your contact management tasks done fas
 
 You can navigate between past successful commands by pressing the `UP` and `DOWN` arrow keys.
 
+[Back to Table of Contents](#table-of-contents)
+
+--------------------------------------------------------------------------------------------------------------------
+
 #### Saving the data
 
 NUSContacts data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+
+[Back to Table of Contents](#table-of-contents)
+
+--------------------------------------------------------------------------------------------------------------------
 
 #### Editing the data file
 
@@ -63,6 +73,10 @@ NUSContacts data are saved automatically as a JSON file `[JAR file location]/dat
 If your changes to the data file makes its format invalid, NUSContacts will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.<br>
 Furthermore, certain edits can cause the NUSContacts to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </div>
+
+[Back to Table of Contents](#table-of-contents)
+
+--------------------------------------------------------------------------------------------------------------------
 
 ### List of all commands
 
@@ -95,6 +109,10 @@ Furthermore, certain edits can cause the NUSContacts to behave in unexpected way
   characters.
 </div>
 
+[Back to Table of Contents](#table-of-contents)
+
+--------------------------------------------------------------------------------------------------------------------
+
 #### Viewing help: `help`
 
 Shows a message listing out all the available commands and their purpose.
@@ -110,6 +128,10 @@ To close the help window, you can simply press `esc` on your keyboard. Windows u
 ![help message](images/helpMessage.png)
 
 The [project website](https://ay2324s2-cs2103t-t11-2.github.io/tp/) includes the NUSContacts user guide, which contains a more detailed description of each command.
+
+[Back to Table of Contents](#table-of-contents)
+
+--------------------------------------------------------------------------------------------------------------------
 
 #### Adding a contact: `add`
 
@@ -149,6 +171,10 @@ If you want to add people with same name, you can add additional characters to a
 For example, you can add two Alice by `n/Alice1` and `n/Alice2`.
 </div>
 
+[Back to Table of Contents](#table-of-contents)
+
+--------------------------------------------------------------------------------------------------------------------
+
 #### Editing a contact: `edit`
 
 Edits an existing contact in the address book.
@@ -178,6 +204,10 @@ You can fix the error, or use `f/` to bypass it if you want to.
 
 Refer to [Adding a contact: `add`](#adding-a-contact-add) for more information about `f/`.
 </div>
+
+[Back to Table of Contents](#table-of-contents)
+
+--------------------------------------------------------------------------------------------------------------------
 
 #### Locating contacts: `find`
 
@@ -214,6 +244,10 @@ Examples:
 ##### Note on returning to the original view
 * After using `find`, the list may no longer display all saved contacts. Use `list` to revert the list to the full list of contacts in the order they were added.
 
+[Back to Table of Contents](#table-of-contents)
+
+--------------------------------------------------------------------------------------------------------------------
+
 #### Listing all contacts: `list`
 
 Shows a list of all contacts in the address book.
@@ -224,6 +258,9 @@ Format: `list`
 :bulb: See [note](#note-on-returning-to-the-original-view) under [Locating Contacts](#locating-contacts-find) to understand how the `list` command can be useful.
 </div>
 
+[Back to Table of Contents](#table-of-contents)
+
+--------------------------------------------------------------------------------------------------------------------
 
 #### Deleting a contact: `delete`
 
@@ -253,6 +290,10 @@ Format: `delete INDEX1, INDEX2, INDEX3, …`
 Example:
 * `delete 3, 1, 7, 8` deletes the first, third, seventh, and eighth contact in the address book.
 
+[Back to Table of Contents](#table-of-contents)
+
+--------------------------------------------------------------------------------------------------------------------
+
 #### Copying a contact's email to clipboard: `copy`
 
 Copies the email of the specified contact from the address book to the system clipboard.
@@ -267,11 +308,19 @@ Examples:
 * `list` followed by `copy 2` copies the email of the 2nd contact in the address book to the clipboard.
 * `find Betsy` followed by `copy 1` copies the email of the 1st contact in the results of the `find` command to the clipboard.
 
+[Back to Table of Contents](#table-of-contents)
+
+--------------------------------------------------------------------------------------------------------------------
+
 #### Clearing all entries: `clear`
 
 Clears all entries from the address book.
 
 Format: `clear`
+
+[Back to Table of Contents](#table-of-contents)
+
+--------------------------------------------------------------------------------------------------------------------
 
 #### Undoing the last command: `undo`
 
@@ -290,15 +339,24 @@ press `UP` a few times to go to the command that executes the edit,
 then press `ENTER` to execute it.
 </div>
 
+[Back to Table of Contents](#table-of-contents)
+
+--------------------------------------------------------------------------------------------------------------------
+
 #### Exiting the program: `exit`
 
 Exits the program.
 
 Format: `exit`
 
+[Back to Table of Contents](#table-of-contents)
+
+--------------------------------------------------------------------------------------------------------------------
+
 ### Miscellaneous features
 
 You don't need to know about these features on the first read.
+
 
 #### Highlighting erroneous part of the command
 
@@ -309,6 +367,10 @@ For example:
 * If you type `peer` for the role field, the error message is shown and 
   the text cursor is positioned at `peer` where the error occurs as the image below.<br>
   ![result for wrong role 'peer'](images/Highlighting_erroneous_part_of_the_command.png)
+
+[Back to Table of Contents](#table-of-contents)
+
+--------------------------------------------------------------------------------------------------------------------
 
 #### Escape special characters
 
@@ -361,6 +423,8 @@ For example:
   * `find John s\/o Doe` will be able to find that person.
   * `edit 2 t/birthday: 3\/2` will edit the tag list of the 2nd person to have a single tag `birthday: 3/2`.
 
+[Back to Table of Contents](#table-of-contents)
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## FAQ
@@ -373,6 +437,8 @@ For example:
 
 **Q**: I've found a bug in the application. How can I report it?<br>
 **A**: Please check the [list of known issues/limitations](#known-issueslimitations) first. If it is not covered, you can report the bug at the [project's issue tracker on GitHub](https://github.com/AY2324S2-CS2103T-T11-2/tp/issues).
+
+[Back to Table of Contents](#table-of-contents)
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -400,6 +466,7 @@ For example:
 
 7. Duplicate phone number and email are not detected.
 
+[Back to Table of Contents](#table-of-contents)
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -417,3 +484,7 @@ For example:
 | [**Exit**](#exiting-the-program-exit)   | `exit`                                                                                                                                                                   |
 | [**Copy Email**](#copying-a-contacts-email-to-clipboard-copy)   | `copy INDEX`                                                                                                                                                             |
 | [**Undo**](#undoing-the-last-command-undo)   | `undo`                                                                                                                                                                   |
+
+[Back to Table of Contents](#table-of-contents)
+
+--------------------------------------------------------------------------------------------------------------------
